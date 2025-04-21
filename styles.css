@@ -1,0 +1,256 @@
+/* basic mandatory things */
+body {
+  font-family:'Times New Roman', Times, serif;
+  background: #faf8eb;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: #48abb0;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  font-size: large;
+}
+nav ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+nav ul li a {
+  color: white;
+  text-decoration: none;
+} 
+nav ul li a:hover{
+  color: #ffb400;
+}
+
+main {
+  text-align: center;
+  padding: 2rem;
+}
+/* chatbot */
+.video-icon-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+  cursor: pointer;
+  background: #48abb0;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.video-icon-container:hover {
+  transform: scale(1.1);
+  object-fit: cover;
+}
+
+.video-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+section {
+  margin-bottom: 3rem;
+}
+/* Levels and progress graph */
+.level {
+  background: #fff;
+  border: 1px solid #ddd;
+  width: 85%;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 20px;
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.level.completed {
+  background-color: #d4edda;
+  border-color: #28a745;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+#levelContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+#separate{
+  display: flex;
+  justify-content: space-evenly;
+  height: 100%;
+}
+
+#progressSection {
+  margin-top: 40px;
+  padding: 1rem;
+  background-color: #f7f7f7;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 25%;
+}
+#progressSection h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+/* camera css */
+#camera {
+  border: 1px solid #ddd;
+  background-color: #f7f7f7;
+  width: 25%;
+  padding: 1rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+/* for disclaimer */
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+}
+.modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 600px;
+  text-align: center;
+}
+/* Human booking form */
+#humanSupport {
+  background-color: #f7f7f7;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin-top: 2rem;
+  border-radius: 12px;
+}
+#bookingForm {
+  margin-top: 1rem;
+  background: #fff;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+@media (max-width: 768px) {
+  .level-progress-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #levels, #progressSection {
+    max-width: 90%;
+  }
+}
+/* footer */
+.site-footer {
+  background-color: #48abb0;
+  color: #fff;
+  padding: 40px 20px 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  max-width: 1200px;
+  margin: auto;
+  border-bottom: 1px solid #444;
+  padding-bottom: 20px;
+}
+
+.footer-logo h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #ffb400;
+
+}
+
+.footer-logo p {
+  margin: 5px 0 0;
+  font-size: 14px;
+  color:white;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: #ffb400;
+}
+
+.footer-social a {
+  margin-right: 15px;
+}
+
+.footer-social img {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
+  transition: transform 0.2s;
+}
+
+.footer-social img:hover {
+  transform: scale(1.1);
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+/* Style for the splash screen */
+#splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #faf8eb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  transition: opacity 0.8s ease-out;
+}
+
+/* Style for the logo */
+#splash-screen img {
+  width: 500px;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+/* Keyframes for fade-in effect */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* Hide content initially */
+#content {
+  display: none;
+}

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Powered Personal Driving Assistant</title>
+    <link rel="shortcut icon" href="co.jpeg" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+    <script src="voiceControl.js"></script>
+    <!-- Replace YOUR_API_KEY with the key you just obtained -->
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDy4H-sSdaG5S17nRx4DQsiBoiqHtd9elE&callback=initMap"
+    async
+    defer
+>   </script>
+
+</head>
+
+<body>
+    <!-- preloader  -->
+     <div id="splash-screen">
+        <img src="WhatsApp Image 2025-04-13 at 11.54.55 PM.jpeg" alt="Logo"> <!-- Replace with your logo -->
+    </div>
+
+    <!-- disclaimer -->
+    <div id="disclaimerModal" class="modal">
+        <div class="modal-content">
+            <h2> ⚠️ Terms of Use & Disclaimer</h2>
+            <p>
+                This AI Driving Assistant is a learning aid only. It does not replace formal training by certified
+                professionals.
+                The app and its creators are <strong style="color: red;">not responsible</strong> for any physical or financial losses,
+                accidents, or
+                damages caused during or after using this app.
+            </p>
+            <p>
+                Users must follow local traffic laws and take full responsibility for their actions. If facial detection
+                fails
+                or posture is incorrect, AI assistance may be limited or disabled for safety reasons.
+            </p>
+            <label>
+                <input type="checkbox" id="acceptTerms"> I understand and agree to the terms and conditions.
+            </label>
+            <br>
+            <br>
+            <button onclick="acceptDisclaimer()">Continue</button>
+        </div>
+    </div>
+    <!-- navbar -->
+    <header>
+        <div style="display: flex; justify-content: center;" id="img">
+            <h1>AI Driving Assistant</h1>
+        <img width="6%" style="border-radius: 50%;" src="co.jpeg" alt="">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#levels">Driving Levels</a></li>
+                <li><a href="#camera">Camera Simulator</a></li>
+                <li><a href="#progressSection">Your Driving Progress</a></li>
+                <li><a href="#voice">Voice Assistant</a></li>
+                <li><a href="#license">License Eligibility</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section id="home">
+            <h2 style="font-size: 40px;font-weight: bold;
+            ">Welcome to Your AI Driving Coach</h2>
+            <p>Learn to drive step-by-step, with smart feedback and real-time guidance.</p>
+        </section>
+        
+        <!-- Levels Section -->
+         <section id="levels">
+            <h2>Driving Levels</h2>
+            <p>Track your progress as you level up your driving skills.</p>
+            <div id="levelContainer"></div>
+            <p id="progressMessage"></p>
+            <p id="supportMessage" style="color: red; font-weight: bold;"></p>
+            <div id="map" style="width: 100%; height: 300px; margin-top: 1rem;"></div>
+        </section>       
+    
+        <div id="separate">
+        <!-- Progress Section -->
+        <section id="progressSection">
+            <h2>📈 Your Driving Progress</h2>
+             <canvas id="progressChart" width="200" height="200"></canvas>
+
+              <!-- Wave / consistency chart -->
+            <h2>🔊 Consistency Over Time</h2>
+            <canvas id="waveChart" width="400" height="200"></canvas>
+        </section>
+
+        <section id="camera">
+            <h2>📸 Camera Simulator</h2>
+            <video id="video" width="320" height="540" autoplay muted playsinline></video>
+            <canvas id="overlay" width="320" height="540" style="position: absolute; top: 0; left: 0;"></canvas>
+            <button onclick="startCamera()">📸 Start Camera</button>
+            <button onclick="stopCamera()" id="stopButton" style="display: none;">📷 Stop Camera</button>
+        </section>
+    </div>
+
+        <section id="voice">
+            <h2>Voice Assistant</h2>
+            <button onclick="speakInstructions()">▶️ Play Instructions</button>
+            <button onclick="toggleInstruction()">⏸️ Pause/Resume</button>
+            <button onclick="stopInstruction()">⏹️ Stop Instructions</button>
+        </section>
+
+        <section id="license">
+            <h2>License Eligibility</h2>
+            <p>"After successfully completing all the levels,<br> you'll unlock the final step...<br> the opportunity to
+                register for your official license and take the next big leap forward!"</p>
+        </section>
+
+        <section id="humanSupport">
+            <h2>Need a Human Driving Instructor?</h2>
+            <p>While our AI can teach you everything, you may optionally book a certified human instructor for
+                additional help.</p>
+            <button onclick="toggleBookingForm()">Book a Human Instructor</button>
+
+            <form id="bookingForm" style="display: none;" onsubmit="submitBooking(event)">
+                <label>Name:<br><input type="text" id="userName" required></label><br><br>
+                <label>Preferred Date:<br><input type="date" id="bookingDate" required></label><br><br>
+                <label>Vehicle Type:<br>
+                    <select id="vehicleType" required>
+                        <option value="">--Select--</option>
+                        <option value="2-wheeler">2-Wheeler</option>
+                        <option value="4-wheeler">4-Wheeler</option>
+                        <option value="Commercial Truck">Commercial Truck</option>
+                    </select>
+                </label><br><br>
+                <button type="submit">Submit Booking</button>
+            </form>
+
+            <p id="bookingMessage" style="font-weight: bold; color: green;"></p>
+        </section>
+        <!-- chatbot  -->
+        <div class="video-icon-container" onclick="openVideo()">
+            <video
+              id="videoIcon"
+              class="video-icon"
+              src="WhatsApp Video 2025-04-19 at 9.55.34 PM.mp4"
+              autoplay
+              loop
+              muted
+              playsinline
+            ></video>
+          </div>          
+    </main>
+
+        <footer class="site-footer">
+            <div class="footer-container">
+              <div class="footer-logo">
+                <h2>DriveMate</h2>
+                <p>Your Smart Driving Tutor</p>
+              </div>
+              
+              <div class="footer-links">
+                <a href="#">Home</a>
+                <a href="#">Features</a>
+                <a href="#">Pricing</a>
+                <a href="#">Contact</a>
+              </div>
+              
+              <div class="footer-social">
+                <a style="text-decoration: none;"href="https://www.facebook.com/"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/facebook.svg" alt="Facebook" width="24" height="24">
+                </a>
+                <a  style="text-decoration: none;"href="https://x.com/"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/twitter.svg" alt="Twitter" width="24" height="24">
+                </a>
+                <a style="text-decoration: none;"href="https://www.instagram.com/"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/instagram.svg" alt="Instagram" width="24" height="24">
+                </a>
+                <a style="text-decoration: none;"href="https://github.com" target="_blank">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/github.svg" alt="GitHub" width="24" height="24">
+                  </a>
+                  
+              </div>
+            </div>
+            <div class="footer-bottom">
+              <p style="color: black;">&copy; 2025 DriveMate. All rights reserved.</p>
+            </div>
+          </footer>
+          <script>
+    // Wait for 3 seconds, then hide splash screen and show content
+        setTimeout(() => {
+            document.getElementById('splash-screen').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('splash-screen').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+            }, 800); // Matches transition duration
+        }, 3000);
+        </script>
+          
+</body>
+</html>
